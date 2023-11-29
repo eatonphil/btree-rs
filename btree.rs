@@ -1,11 +1,11 @@
-struct BTree<K: Ord + Clone + std::fmt::Debug + std::fmt::Display, V: Ord + Clone + std::fmt::Debug + std::fmt::Display> {
+struct BTree<K: Ord + Clone, V: Ord + Clone> {
     node_size: usize,
     keys: Vec<K>,
     children: Vec<BTree<K, V>>,
     values: Vec<V>,
 }
 
-impl<K: Ord + Clone + std::fmt::Debug + std::fmt::Display, V: Ord + Clone + std::fmt::Debug + std::fmt::Display> BTree<K, V> {
+impl<K: Ord + Clone, V: Ord + Clone> BTree<K, V> {
     fn new(node_size: usize) -> BTree<K, V> {
 	return BTree::<K, V>{
 	    node_size: node_size,
