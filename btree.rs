@@ -141,13 +141,13 @@ impl<K: Ord + Clone + std::fmt::Debug, V: Ord + Clone + std::fmt::Debug> BTreeNo
 }
 
 struct BTree<K: Ord + Clone + std::fmt::Debug, V: Ord + Clone + std::fmt::Debug> {
-    root: Box<BTreeNode<K, V>>,
+    root: BTreeNode<K, V>,
 }
 
 impl<K: Ord + Clone + std::fmt::Debug, V: Ord + Clone + std::fmt::Debug> BTree<K, V> {
     fn new(node_size: usize) -> BTree<K, V> {
         return BTree::<K, V> {
-            root: Box::new(BTreeNode::<K, V>::new(node_size)),
+            root: BTreeNode::<K, V>::new(node_size),
         };
     }
 
@@ -162,11 +162,11 @@ impl<K: Ord + Clone + std::fmt::Debug, V: Ord + Clone + std::fmt::Debug> BTree<K
             return;
         };
 
-        let newroot = Box::new(BTreeNode::<K, V>::new(self.root.node_size));
+        let newroot = BTreeNode::<K, V>::new(self.root.node_size);
         let overflow_key = overflow.keys.remove(0);
         let overflow_value = overflow.values.remove(0);
         let old = std::mem::replace(&mut self.root, newroot);
-        self.root.children.push(*old);
+        self.root.children.push(old);
 
         self.root.keys.push(overflow_key);
         assert!(self.root.keys.len() == 1);
